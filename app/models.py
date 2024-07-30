@@ -7,6 +7,7 @@ class Account(models.Model):
 
     class Meta:
         db_table = 'm_account'
+        app_label = 'app'
 
     def __str__(self):
         return self.username
@@ -17,6 +18,7 @@ class SkillCategory(models.Model):
 
     class Meta:
         db_table = 'm_skill_category'
+        app_label = 'app'
 
     def __str__(self):
         return self.skill_category_name
@@ -29,6 +31,7 @@ class Training(models.Model):
 
     class Meta:
         db_table = 'm_training'
+        app_label = 'app'
 
     def __str__(self):
         return self.training_name
@@ -39,6 +42,7 @@ class Role(models.Model):
 
     class Meta:
         db_table = 'm_role'
+        app_label = 'app'
 
     def __str__(self):
         return self.role_name
@@ -50,6 +54,7 @@ class Department(models.Model):
 
     class Meta:
         db_table = 'm_department'
+        app_label = 'app'
 
     def __str__(self):
         return self.department_name
@@ -62,6 +67,7 @@ class Project(models.Model):
 
     class Meta:
         db_table = 't_project'
+        app_label = 'app'
 
     def __str__(self):
         return self.project_name
@@ -76,6 +82,7 @@ class Assignee(models.Model):
 
     class Meta:
         db_table = 't_assignee'
+        app_label = 'app'
 
     def __str__(self):
         return self.assignee_id
@@ -84,17 +91,17 @@ class Employee(models.Model):
     first_name = models.CharField(max_length=50)
     middle_name = models.CharField(max_length=50, null=True, blank=True)
     last_name = models.CharField(max_length=50)
-    full_name_str = last_name + ', ' + first_name
-    full_name_id = first_name
+    full_name_str = str(last_name) + ', ' + str(first_name)
+    full_name_id = str(first_name)
     # if middle_name is not None, add its first letter to full_name
     if middle_name != None:
-        full_name_str = full_name_str + ' ' + middle_name[0] + '.'
-        full_name_id = full_name_id + '.' + middle_name[0]
-    full_name_id = full_name_id + '.' + last_name
+        full_name_str = full_name_str + ' ' + str(middle_name)[0] + '.'
+        full_name_id = full_name_id + '.' + str(middle_name)[0]
+    full_name_id = full_name_id + '.' + str(last_name)
     full_name = models.CharField(default=full_name_str, max_length=105)
     employee_id = models.CharField(primary_key=True, default=full_name_id, max_length=103, unique=True)
     # employee_num is 8-digit number
-    employee_num = models.AutoField(max_digits=8, unique=True, editable=False)
+    employee_num = models.AutoField(max_length=8, unique=True, editable=False)
     email = models.EmailField(default=employee_id + '@example.com', unique=True)
     phone_num = models.CharField(max_length=15)
     hire_date = models.DateField()
@@ -106,6 +113,7 @@ class Employee(models.Model):
 
     class Meta:
         db_table = 't_employee'
+        app_label = 'app'
 
     def __str__(self):
         return self.full_name_str
@@ -118,6 +126,7 @@ class Skill(models.Model):
 
     class Meta:
         db_table = 't_skill'
+        app_label = 'app'
 
     def __str__(self):
         return self.skill_name
@@ -129,6 +138,7 @@ class OwnedSkill(models.Model):
 
     class Meta:
         db_table = 't_owned_skill'
+        app_label = 'app'
 
     def __str__(self):
         # return skill name from Skill model
@@ -141,6 +151,7 @@ class TrainingHistory(models.Model):
 
     class Meta:
         db_table = 't_training_history'
+        app_label = 'app'
 
     def __str__(self):
         return self.training_history_id
@@ -154,6 +165,7 @@ class Resume(models.Model):
 
     class Meta:
         db_table = 't_resume'
+        app_label = 'app'
 
     def __str__(self):
         return self.resume_title
